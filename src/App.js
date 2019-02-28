@@ -7,13 +7,28 @@ class App extends Component {
     this.state={
       message:'Ola Mundo',
       newTodo:'',
+      todos:[{
+        title:'Learn react',
+        done: false
+      },{
+        title:'Learn vue',
+        done: false
+      }],
     }
   }
 
   formSubmitted(event){
     event.preventDefault();
+    this.setState({
+      newTodo:'',
+      todos: [...this.state.todos, {
+        title: this.state.newTodo,
+        done: false
+      }]
+    })
     console.log(this.state.newTodo);
-    console.log("form submitted")
+    console.log(this.state.todos);
+    console.log("form submitted");
   }
   
   newTodoChange(event){
@@ -21,6 +36,20 @@ class App extends Component {
       newTodo: event.target.value
     })
   }
+
+  toggleTodoDone(event,index){
+    console.log(event.target.checked);
+    const todos = [...this.state.todos] //copy the array
+    console.log(todos)
+    todos[index] = {...todos[index]}; //copy the todo
+    console.log(todos[index]);
+    todos[index].done = event.target.checked; //update done property on copied array
+    console.log(todos[index].done)
+    this.setState({ //set new array
+      todos
+    })
+  }
+
 
   render() {
     return (
@@ -31,9 +60,17 @@ class App extends Component {
           <input onChange={(event)=>this.newTodoChange(event)} 
             id="newTodo" 
             type="text" 
-            name="newTodo"/>
+            name="newTodo"
+            value={this.state.newTodo}/>
           <button type="submit">Add</button>
         </form>
+        <ul>
+          {this.state.todos.map((todo,index) =>{
+            return <li key={todo.title}>
+            <input onChange={(event)=>this.toggleTodoDone(event,index)} type="checkbox"/>{todo.title}
+            </li>
+          })}
+        </ul>
       </div>
     );
   }
