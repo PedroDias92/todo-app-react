@@ -27,3 +27,13 @@ input[type ="checkbox"]{
   display: inline;
   width: auto;
 }
+
+.remove{
+  display: inline;
+  width: auto;
+  background: rgb(202, 60, 60);
+}
+
+.done{
+  text-decoration: line-through;
+}

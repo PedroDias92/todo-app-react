@@ -50,6 +50,27 @@ class App extends Component {
     })
   }
 
+  removeTodo(index){
+    const todos = [...this.state.todos]; //copy the array
+    todos.splice(index,1) ; // removes the toDo
+
+    this.setState({ //sets new todos
+      todos
+    });
+  }
+
+  allDone(){
+    const todos = this.state.todos.map(todo =>{
+      return {
+        title:todo.title,
+        done: true
+      };
+    }); //copy the array
+    this.setState({
+      todos
+    })
+  }
+
 
   render() {
     return (
@@ -64,11 +85,17 @@ class App extends Component {
             value={this.state.newTodo}/>
           <button type="submit">Add</button>
         </form>
+        <button onClick={()=>this.allDone()}>All Done</button>
         <ul>
           {this.state.todos.map((todo,index) =>{
             return <li key={todo.title}>
-            <input onChange={(event)=>this.toggleTodoDone(event,index)} type="checkbox"/>{todo.title}
+            <input onChange={(event)=>this.toggleTodoDone(event,index)} type="checkbox" checked={todo.done}/>
+{/*             <span style={{textDecoration: todo.done? 'line-through':''}}>{todo.title}</span>
+ */}            
+                <span className={todo.done? 'done' : ''}>{todo.title}</span>
+                <button className="remove" onClick={() => this.removeTodo(index)}>remove</button>
             </li>
+            
           })}
         </ul>
       </div>
