@@ -9,7 +9,7 @@ class App extends Component {
   constructor(){
     super(); //calls all methods and stuff from component
     this.state={
-      message:'Ola Mundo',
+      message:'ToDo App *React*',
       newTodo:'',
       todos:[{
         title:'Learn react',
@@ -79,7 +79,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>{this.state.message}</h1>
+        <h2 style={{textAlign:'center'}}>{this.state.message}</h2>
         <NewTodoForm
           newTodo={this.state.newTodo}
           formSubmitted={this.formSubmitted.bind(this)}
